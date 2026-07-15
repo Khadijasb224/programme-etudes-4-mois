@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khadija's Study Program — 4 Months</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f0f0f; color: #e0e0e0; padding: 20px; }
+.container { max-width: 900px; margin: 0 auto; }
+h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; color: #fff; }
+.subtitle { font-size: 14px; color: #888; margin-bottom: 20px; }
+
+/* Global progress */
+.global-progress { background: #1a1a1a; border-radius: 12px; padding: 16px; margin-bottom: 24px; border: 1px solid #2a2a2a; }
+.gp-title { font-size: 13px; color: #888; margin-bottom: 8px; }
+.gp-bar { background: #2a2a2a; border-radius: 6px; height: 10px; margin-bottom: 6px; }
+.gp-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); transition: width 0.4s; }
+.gp-label { font-size: 13px; color: #aaa; }
+
+/* Subject tabs */
+.subjects { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.subject-btn { padding: 8px 16px; border-radius: 20px; border: 1px solid #2a2a2a; background: #1a1a1a; color: #888; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+.subject-btn:hover { border-color: #444; color: #ccc; }
+.subject-btn.active { color: #fff; border-color: transparent; }
+.subject-btn.s1.active { background: #1d4ed8; }
+.subject-btn.s2.active { background: #7c3aed; }
+.subject-btn.s3.active { background: #059669; }
+.subject-btn.s4.active { background: #d97706; }
+.subject-btn.s5.active { background: #db2777; }
+
+/* Subject panels */
+.subject-panel { display: none; }
+.subject-panel.active { display: block; }
+
+/* Subject header */
+.subject-header { background: #1a1a1a; border-radius: 12px; padding: 16px 20px; margin-bottom: 16px; border: 1px solid #2a2a2a; }
+.sh-top { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.sh-icon { font-size: 24px; }
+.sh-name { font-size: 18px; font-weight: 600; color: #fff; }
+.sh-desc { font-size: 13px; color: #888; margin-bottom: 10px; }
+.sh-resources { font-size: 12px; color: #666; }
+.sh-resources a { color: #60a5fa; text-decoration: none; }
+.sh-bar { background: #2a2a2a; border-radius: 4px; height: 6px; margin-top: 8px; }
+.sh-fill { height: 100%; border-radius: 4px; transition: width 0.4s; }
+
+/* Month */
+.month { margin-bottom: 16px; }
+.month-toggle { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; cursor: pointer; margin-bottom: 8px; }
+.month-toggle:hover { border-color: #444; }
+.month-badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.5px; }
+.month-title { font-size: 14px; font-weight: 500; color: #ddd; flex: 1; }
+.month-count { font-size: 12px; color: #666; }
+.month-chev { color: #555; font-size: 12px; transition: transform 0.2s; }
+.month-chev.open { transform: rotate(180deg); }
+.month-body { display: none; }
+.month-body.open { display: block; }
+
+/* Chapter */
+.chapter { background: #141414; border: 1px solid #222; border-radius: 10px; margin-bottom: 8px; overflow: hidden; }
+.ch-header { display: flex; align-items: center; gap: 10px; padding: 10px 14px; cursor: pointer; }
+.ch-header:hover { background: #1a1a1a; }
+.ch-num { font-size: 11px; font-weight: 700; color: #555; min-width: 24px; }
+.ch-title { font-size: 13px; font-weight: 600; color: #ccc; flex: 1; }
+.ch-prog { font-size: 11px; color: #555; }
+.ch-chev { color: #444; font-size: 11px; transition: transform 0.2s; }
+.ch-chev.open { transform: rotate(180deg); }
+
+.lessons { padding: 0 14px 10px 38px; display: none; }
+.lessons.open { display: block; }
+
+/* Lesson */
+.lesson { padding: 8px 0; border-bottom: 1px solid #1e1e1e; }
+.lesson:last-child { border-bottom: none; }
+.lesson-title { font-size: 12px; font-weight: 600; color: #aaa; margin-bottom: 4px; }
+
+/* Task */
+.task { display: flex; align-items: flex-start; gap: 8px; padding: 4px 0; }
+.task input { margin-top: 2px; cursor: pointer; accent-color: #3b82f6; width: 14px; height: 14px; flex-shrink: 0; }
+.task label { font-size: 12px; color: #888; cursor: pointer; line-height: 1.5; }
+.task.done label { text-decoration: line-through; color: #444; }
+
+/* Tags */
+.tag { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 10px; margin-left: 5px; }
+.tag-lesson { background: #1e3a5f; color: #60a5fa; }
+.tag-hw { background: #3b1f5e; color: #a78bfa; }
+.tag-resource { background: #1a3a2a; color: #4ade80; }
+.tag-anslem { background: #3b2a0a; color: #fbbf24; }
+
+/* Homework box */
+.hw-box { background: #1a1a2e; border: 1px solid #2d2d5e; border-radius: 8px; padding: 10px 12px; margin-top: 6px; }
+.hw-title { font-size: 11px; font-weight: 700; color: #818cf8; margin-bottom: 6px; }
+
+/* Schedule box */
+.schedule { background: #1a1a1a; border-radius: 12px; padding: 16px; margin-bottom: 20px; border: 1px solid #2a2a2a; }
+.schedule h3 { font-size: 14px; font-weight: 600; color: #ddd; margin-bottom: 12px; }
+.day-row { display: flex; gap: 8px; align-items: flex-start; padding: 6px 0; border-bottom: 1px solid #1e1e1e; }
+.day-row:last-child { border-bottom: none; }
+.day-name { font-size: 12px; font-weight: 600; color: #888; min-width: 80px; }
+.day-slots { display: flex; gap: 6px; flex-wrap: wrap; }
+.slot { font-size: 11px; padding: 3px 10px; border-radius: 20px; color: #fff; font-weight: 500; }
+.slot-s1 { background: #1d4ed8; }
+.slot-s2 { background: #7c3aed; }
+.slot-s3 { background: #059669; }
+.slot-s4 { background: #d97706; }
+.slot-s5 { background: #db2777; }
+.slot-rest { background: #2a2a2a; color: #666; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>📚 Khadija's Study Program</h1>
+<p class="subtitle">4 months · 5 subjects in parallel · School-style curriculum · Target: first client by Sept 6, 2026</p>
+
+<!-- Global Progress -->
+<div class="global-progress">
+  <div class="gp-title">Overall progress across all subjects</div>
+  <div class="gp-bar"><div class="gp-fill" id="globalFill" style="width:0%"></div></div>
+  <div class="gp-label" id="globalLabel">0 / 0 tasks completed</div>
+</div>
+
+<!-- Weekly Schedule -->
+<div class="schedule">
+  <h3>📅 Weekly Schedule (4h/day)</h3>
+  <div class="day-row"><span class="day-name">Monday</span><div class="day-slots"><span class="slot slot-s1">Fugue Tech (2h)</span><span class="slot slot-s2">JavaScript (2h)</span></div></div>
+  <div class="day-row"><span class="day-name">Tuesday</span><div class="day-slots"><span class="slot slot-s4">Web Design (2h)</span><span class="slot slot-s2">JavaScript (2h)</span></div></div>
+  <div class="day-row"><span class="day-name">Wednesday</span><div class="day-slots"><span class="slot slot-s1">Fugue Tech (2h)</span><span class="slot slot-s3">AI + Claude (2h)</span></div></div>
+  <div class="day-row"><span class="day-name">Thursday</span><div class="day-slots"><span class="slot slot-s4">Web Design (2h)</span><span class="slot slot-s5">CS Fundamentals (2h)</span></div></div>
+  <div class="day-row"><span class="day-name">Friday</span><div class="day-slots"><span class="slot slot-s1">Anslem Session (1-2h)</span><span class="slot slot-s4">Client Prospecting (2h)</span></div></div>
+  <div class="day-row"><span class="day-name">Saturday</span><div class="day-slots"><span class="slot slot-rest">YouTube (max 3h)</span><span class="slot slot-rest">Review + Homework</span></div></div>
+  <div class="day-row"><span class="day-name">Sunday</span><div class="day-slots"><span class="slot slot-rest">Rest + Weekly review</span></div></div>
+</div>
+
+<!-- Subject Tabs -->
+<div class="subjects">
+  <button class="subject-btn s1 active" onclick="showSubject('s1')">🔵 Fugue Tech Stack</button>
+  <button class="subject-btn s2" onclick="showSubject('s2')">🟣 JavaScript</button>
+  <button class="subject-btn s3" onclick="showSubject('s3')">🟢 AI + Claude Academy</button>
+  <button class="subject-btn s4" onclick="showSubject('s4')">🟠 Web Design (Framer)</button>
+  <button class="subject-btn s5" onclick="showSubject('s5')">🩷 CS Fundamentals</button>
+</div>
+
+<!-- ==================== SUBJECT 1: FUGUE TECH ==================== -->
+<div class="subject-panel active" id="panel-s1">
+  <div class="subject-header">
+    <div class="sh-top"><span class="sh-icon">🔵</span><span class="sh-name">Fugue Tech Stack</span></div>
+    <div class="sh-desc">Terminal, Git/GitHub, Firebase, HTML/CSS — everything that runs Fugue Agency. You learn this by working directly on your own product.</div>
+    <div class="sh-resources">📺 Resources: <a href="https://www.youtube.com/@FirebaseOfficial" target="_blank">Firebase YouTube</a> · <a href="https://www.youtube.com/watch?v=RGOj5yH7evk" target="_blank">Git & GitHub (freeCodeCamp)</a> · Anslem sessions (Fridays)</div>
+    <div class="sh-bar"><div class="sh-fill" id="fill-s1" style="width:0%;background:#3b82f6"></div></div>
+  </div>
+
+  <!-- MONTH 1 -->
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s1m1')">
+      <span class="month-badge" style="background:#1e3a5f;color:#60a5fa">MONTH 1</span>
+      <span class="month-title">Terminal + Git + Reading Fugue's code</span>
+      <span class="month-count" id="cnt-s1m1">0/0</span>
+      <span class="month-chev" id="chev-s1m1">▼</span>
+    </div>
+    <div class="month-body" id="body-s1m1">
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s1m1c1')">
+          <span class="ch-num">CH.1</span>
+          <span class="ch-title">The Terminal — your most important tool</span>
+          <span class="ch-prog" id="prog-s1m1c1">0/6</span>
+          <span class="ch-chev" id="chev-s1m1c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s1m1c1">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — What is the terminal and why use it?</div>
+            <div class="task"><input type="checkbox" id="t_s1_1"><label for="t_s1_1">Understand what a terminal/shell is (it's how you talk to your computer without clicking) <span class="tag tag-lesson">concept</span></label></div>
+            <div class="task"><input type="checkbox" id="t_s1_2"><label for="t_s1_2">Open Terminal on Mac and type your first command: pwd <span class="tag tag-lesson">practice</span></label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Navigation commands</div>
+            <div class="task"><input type="checkbox" id="t_s1_3"><label for="t_s1_3">ls — list files in a folder</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_4"><label for="t_s1_4">cd — move between folders (cd Desktop, cd .., cd ~)</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_5"><label for="t_s1_5">mkdir, touch, rm — create and delete files and folders</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 3 — VS Code from terminal</div>
+            <div class="task"><input type="checkbox" id="t_s1_6"><label for="t_s1_6">Open any folder in VS Code by typing: code . <span class="tag tag-lesson">practice</span></label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.1</div>
+            <div class="task"><input type="checkbox" id="hw_s1_1"><label for="hw_s1_1">Create a folder called "my-projects" on your Desktop using only the terminal. Inside it, create 3 subfolders: fugue, youtube, personal <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s1m1c2')">
+          <span class="ch-num">CH.2</span>
+          <span class="ch-title">Git & GitHub — version control for your code</span>
+          <span class="ch-prog" id="prog-s1m1c2">0/7</span>
+          <span class="ch-chev" id="chev-s1m1c2">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s1m1c2">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — What is Git and why does it matter?</div>
+            <div class="task"><input type="checkbox" id="t_s1_7"><label for="t_s1_7">Understand: Git = save system for code (like "save history" in a game)</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_8"><label for="t_s1_8">GitHub = where you store your code online (like Google Drive for code)</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Core Git commands</div>
+            <div class="task"><input type="checkbox" id="t_s1_9"><label for="t_s1_9">git init — start tracking a project</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_10"><label for="t_s1_10">git add . — prepare all changes to save</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_11"><label for="t_s1_11">git commit -m "message" — save a version with a description</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_12"><label for="t_s1_12">git push — send your code to GitHub</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_13"><label for="t_s1_13">git pull — get latest code from GitHub</label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.2</div>
+            <div class="task"><input type="checkbox" id="hw_s1_2"><label for="hw_s1_2">Create a new GitHub repo called "my-first-repo". Clone it, add a file called notes.txt, write 3 things you learned, commit and push it <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s1m1c3')">
+          <span class="ch-num">CH.3</span>
+          <span class="ch-title">Reading Fugue's code on GitHub</span>
+          <span class="ch-prog" id="prog-s1m1c3">0/5</span>
+          <span class="ch-chev" id="chev-s1m1c3">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s1m1c3">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — Understand the project structure</div>
+            <div class="task"><input type="checkbox" id="t_s1_14"><label for="t_s1_14">Open Fugue's GitHub repo and identify the main folders</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_15"><label for="t_s1_15">Understand what index.html, main.js, and package.json do</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Environment variables</div>
+            <div class="task"><input type="checkbox" id="t_s1_16"><label for="t_s1_16">Understand what a .env file is (secret keys your app needs)</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_17"><label for="t_s1_17">Find where Fugue's API keys are stored</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 3 — Run Fugue locally</div>
+            <div class="task"><input type="checkbox" id="t_s1_18"><label for="t_s1_18">Clone Fugue's repo and try to run it on your computer (with Anslem) <span class="tag tag-anslem">with Anslem</span></label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.3</div>
+            <div class="task"><input type="checkbox" id="hw_s1_3"><label for="hw_s1_3">Write a 1-page summary (in French) of what each main file in Fugue does. No code needed — just describe it in your own words <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MONTH 2 -->
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s1m2')">
+      <span class="month-badge" style="background:#1e3a5f;color:#60a5fa">MONTH 2</span>
+      <span class="month-title">Firebase + HTML/CSS — understand the database</span>
+      <span class="month-count" id="cnt-s1m2">0/0</span>
+      <span class="month-chev" id="chev-s1m2">▼</span>
+    </div>
+    <div class="month-body" id="body-s1m2">
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s1m2c1')">
+          <span class="ch-num">CH.4</span>
+          <span class="ch-title">Firebase — Fugue's database</span>
+          <span class="ch-prog" id="prog-s1m2c1">0/6</span>
+          <span class="ch-chev" id="chev-s1m2c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s1m2c1">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — What is Firebase?</div>
+            <div class="task"><input type="checkbox" id="t_s1_19"><label for="t_s1_19">Firebase = Google's backend service (database + login + hosting in one)</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_20"><label for="t_s1_20">Navigate the Firebase console for Fugue project</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Firestore database</div>
+            <div class="task"><input type="checkbox" id="t_s1_21"><label for="t_s1_21">Understand collections and documents (like folders and files)</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_22"><label for="t_s1_22">Read existing data in Fugue's Firestore</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_23"><label for="t_s1_23">Manually add and edit a document in Firestore</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 3 — Firebase Authentication</div>
+            <div class="task"><input type="checkbox" id="t_s1_24"><label for="t_s1_24">Understand how Fugue's login system works (email + Google)</label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.4</div>
+            <div class="task"><input type="checkbox" id="hw_s1_4"><label for="hw_s1_4">Add a fake test clinic to Fugue's Firestore with all required fields. Then delete it. Screenshot both steps <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s1m2c2')">
+          <span class="ch-num">CH.5</span>
+          <span class="ch-title">HTML & CSS — reading and modifying Fugue's interface</span>
+          <span class="ch-prog" id="prog-s1m2c2">0/6</span>
+          <span class="ch-chev" id="chev-s1m2c2">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s1m2c2">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — HTML structure</div>
+            <div class="task"><input type="checkbox" id="t_s1_25"><label for="t_s1_25">Understand: HTML = structure (skeleton), CSS = style (clothes), JS = behavior (brain)</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_26"><label for="t_s1_26">Read the main HTML tags used in fuguenetwork.com</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — CSS basics</div>
+            <div class="task"><input type="checkbox" id="t_s1_27"><label for="t_s1_27">Change a color, font size, or button style on Fugue's page</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_28"><label for="t_s1_28">Understand flexbox (how elements are placed side by side)</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 3 — Make a small change and push it</div>
+            <div class="task"><input type="checkbox" id="t_s1_29"><label for="t_s1_29">Change something visible on Fugue's UI (button text, color, logo) <span class="tag tag-anslem">with Anslem</span></label></div>
+            <div class="task"><input type="checkbox" id="t_s1_30"><label for="t_s1_30">Push the change to GitHub and see it live on fuguenetwork.com</label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.5</div>
+            <div class="task"><input type="checkbox" id="hw_s1_5"><label for="hw_s1_5">Build a simple HTML/CSS page from scratch: a fake clinic homepage with a name, logo placeholder, and 3 services listed <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MONTH 3 -->
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s1m3')">
+      <span class="month-badge" style="background:#1e3a5f;color:#60a5fa">MONTH 3</span>
+      <span class="month-title">APIs + AI Agent — how Fugue's brain works</span>
+      <span class="month-count" id="cnt-s1m3">0/0</span>
+      <span class="month-chev" id="chev-s1m3">▼</span>
+    </div>
+    <div class="month-body" id="body-s1m3">
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s1m3c1')">
+          <span class="ch-num">CH.6</span>
+          <span class="ch-title">APIs — connecting Fugue to the world</span>
+          <span class="ch-prog" id="prog-s1m3c1">0/5</span>
+          <span class="ch-chev" id="chev-s1m3c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s1m3c1">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — What is an API?</div>
+            <div class="task"><input type="checkbox" id="t_s1_31"><label for="t_s1_31">API = a way for apps to talk to each other (like a waiter between you and the kitchen)</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_32"><label for="t_s1_32">Identify all APIs used in Fugue: Claude API, Google Calendar API, Twilio</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Google Calendar API</div>
+            <div class="task"><input type="checkbox" id="t_s1_33"><label for="t_s1_33">Understand how Fugue reads and writes appointments to Google Calendar</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 3 — Twilio (telephony)</div>
+            <div class="task"><input type="checkbox" id="t_s1_34"><label for="t_s1_34">Understand how Twilio allows Fugue to receive and make phone calls <span class="tag tag-anslem">with Anslem</span></label></div>
+            <div class="task"><input type="checkbox" id="t_s1_35"><label for="t_s1_35">Read a Twilio webhook — what happens when a call comes in?</label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.6</div>
+            <div class="task"><input type="checkbox" id="hw_s1_6"><label for="hw_s1_6">Draw (on paper or Canva) the full flow: client calls → Twilio → Claude AI → Google Calendar → confirmation SMS. Show each step <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s1m3c2')">
+          <span class="ch-num">CH.7</span>
+          <span class="ch-title">The AI Agent — how it thinks and responds</span>
+          <span class="ch-prog" id="prog-s1m3c2">0/5</span>
+          <span class="ch-chev" id="chev-s1m3c2">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s1m3c2">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — System prompts</div>
+            <div class="task"><input type="checkbox" id="t_s1_36"><label for="t_s1_36">Understand what a system prompt is (the agent's instructions)</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_37"><label for="t_s1_37">Read Fugue's system prompt and understand each instruction <span class="tag tag-anslem">with Anslem</span></label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Modifying the agent</div>
+            <div class="task"><input type="checkbox" id="t_s1_38"><label for="t_s1_38">Change the agent's tone or add a new capability in the prompt</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_39"><label for="t_s1_39">Test the agent by simulating a real client call scenario</label></div>
+            <div class="task"><input type="checkbox" id="t_s1_40"><label for="t_s1_40">Add a new scenario: handling appointment cancellations <span class="tag tag-anslem">with Anslem</span></label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.7</div>
+            <div class="task"><input type="checkbox" id="hw_s1_7"><label for="hw_s1_7">Write a new system prompt for a restaurant AI receptionist (different from the clinic). Test it in Claude and share the conversation <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONTH 4 -->
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s1m4')">
+      <span class="month-badge" style="background:#1e3a5f;color:#60a5fa">MONTH 4</span>
+      <span class="month-title">Onboard clients + sell Fugue</span>
+      <span class="month-count" id="cnt-s1m4">0/0</span>
+      <span class="month-chev" id="chev-s1m4">▼</span>
+    </div>
+    <div class="month-body" id="body-s1m4">
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s1m4c1')">
+          <span class="ch-num">CH.8</span>
+          <span class="ch-title">Onboarding a real client into Fugue</span>
+          <span class="ch-prog" id="prog-s1m4c1">0/5</span>
+          <span class="ch-chev" id="chev-s1m4c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s1m4c1">
+          <div class="task"><input type="checkbox" id="t_s1_41"><label for="t_s1_41">Create a client account in the Fugue dashboard <span class="tag tag-anslem">with Anslem</span></label></div>
+          <div class="task"><input type="checkbox" id="t_s1_42"><label for="t_s1_42">Connect the client's Google Calendar</label></div>
+          <div class="task"><input type="checkbox" id="t_s1_43"><label for="t_s1_43">Configure practitioners, schedules, and services</label></div>
+          <div class="task"><input type="checkbox" id="t_s1_44"><label for="t_s1_44">Run a test call with real client info</label></div>
+          <div class="task"><input type="checkbox" id="t_s1_45"><label for="t_s1_45">Document the onboarding process step by step (your SOP)</label></div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.8</div>
+            <div class="task"><input type="checkbox" id="hw_s1_8"><label for="hw_s1_8">Create a fake clinic "Clinique Barry" in Fugue and go through the full onboarding. Record a 2-min screen video showing it works <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s1m4c2')">
+          <span class="ch-num">CH.9</span>
+          <span class="ch-title">Selling Fugue — the pitch and the demo</span>
+          <span class="ch-prog" id="prog-s1m4c2">0/5</span>
+          <span class="ch-chev" id="chev-s1m4c2">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s1m4c2">
+          <div class="task"><input type="checkbox" id="t_s1_46"><label for="t_s1_46">Write the value proposition: why Fugue vs a human receptionist?</label></div>
+          <div class="task"><input type="checkbox" id="t_s1_47"><label for="t_s1_47">Build a 5-minute demo script for clinics</label></div>
+          <div class="task"><input type="checkbox" id="t_s1_48"><label for="t_s1_48">Identify 10 target clinics in Toronto + 5 in Guinea</label></div>
+          <div class="task"><input type="checkbox" id="t_s1_49"><label for="t_s1_49">Prepare answers for the top 5 client objections</label></div>
+          <div class="task"><input type="checkbox" id="t_s1_50"><label for="t_s1_50">Do a live demo with at least 3 real clinics</label></div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.9</div>
+            <div class="task"><input type="checkbox" id="hw_s1_9"><label for="hw_s1_9">Record a 5-min demo video of Fugue as if you're presenting to a real clinic owner. Practice it 3 times before recording <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SUBJECT 2: JAVASCRIPT ==================== -->
+<div class="subject-panel" id="panel-s2">
+  <div class="subject-header">
+    <div class="sh-top"><span class="sh-icon">🟣</span><span class="sh-name">JavaScript</span></div>
+    <div class="sh-desc">The programming language that powers Fugue Agency AND your client websites. You don't need Python — JS is everything here.</div>
+    <div class="sh-resources">📺 Resources: <a href="https://www.youtube.com/watch?v=PkZNo7MFNFg" target="_blank">freeCodeCamp JS Full Course (YouTube)</a> · <a href="https://javascript.info" target="_blank">javascript.info</a> (best free JS textbook) · <a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/" target="_blank">freeCodeCamp JS Course</a></div>
+    <div class="sh-bar"><div class="sh-fill" id="fill-s2" style="width:0%;background:#7c3aed"></div></div>
+  </div>
+
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s2m1')">
+      <span class="month-badge" style="background:#2d1b69;color:#a78bfa">MONTH 1</span>
+      <span class="month-title">Variables, conditions, loops — JS basics</span>
+      <span class="month-count" id="cnt-s2m1">0/0</span>
+      <span class="month-chev" id="chev-s2m1">▼</span>
+    </div>
+    <div class="month-body" id="body-s2m1">
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s2m1c1')">
+          <span class="ch-num">CH.1</span>
+          <span class="ch-title">Variables and data types</span>
+          <span class="ch-prog" id="prog-s2m1c1">0/5</span>
+          <span class="ch-chev" id="chev-s2m1c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s2m1c1">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — Your first JS code</div>
+            <div class="task"><input type="checkbox" id="t_s2_1"><label for="t_s2_1">Open the browser console (F12 → Console) and type: console.log("Hello Khadija")</label></div>
+            <div class="task"><input type="checkbox" id="t_s2_2"><label for="t_s2_2">Understand: let, const, var — how to store information</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Data types</div>
+            <div class="task"><input type="checkbox" id="t_s2_3"><label for="t_s2_3">String ("hello"), Number (42), Boolean (true/false), Array ([1,2,3]), Object ({name: "Khadija"})</label></div>
+            <div class="task"><input type="checkbox" id="t_s2_4"><label for="t_s2_4">Practice: create variables for a patient's name, age, appointment date</label></div>
+            <div class="task"><input type="checkbox" id="t_s2_5"><label for="t_s2_5">Template literals: `Hello ${name}, your appointment is at ${time}`</label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.1</div>
+            <div class="task"><input type="checkbox" id="hw_s2_1"><label for="hw_s2_1">Create a JS file that stores info for 3 fake patients (name, age, reason for visit) and prints a greeting for each one <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s2m1c2')">
+          <span class="ch-num">CH.2</span>
+          <span class="ch-title">Conditions (if/else) and logic</span>
+          <span class="ch-prog" id="prog-s2m1c2">0/4</span>
+          <span class="ch-chev" id="chev-s2m1c2">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s2m1c2">
+          <div class="task"><input type="checkbox" id="t_s2_6"><label for="t_s2_6">if / else if / else — make decisions in code</label></div>
+          <div class="task"><input type="checkbox" id="t_s2_7"><label for="t_s2_7">Comparison operators: ===, !==, >, <, >=, <=</label></div>
+          <div class="task"><input type="checkbox" id="t_s2_8"><label for="t_s2_8">Logical operators: && (and), || (or), ! (not)</label></div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.2</div>
+            <div class="task"><input type="checkbox" id="hw_s2_2"><label for="hw_s2_2">Write a function that checks if a clinic appointment slot is available (busy = true/false). If busy, suggest the next available time <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s2m1c3')">
+          <span class="ch-num">CH.3</span>
+          <span class="ch-title">Loops — repeat actions automatically</span>
+          <span class="ch-prog" id="prog-s2m1c3">0/4</span>
+          <span class="ch-chev" id="chev-s2m1c3">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s2m1c3">
+          <div class="task"><input type="checkbox" id="t_s2_9"><label for="t_s2_9">for loop — repeat X times</label></div>
+          <div class="task"><input type="checkbox" id="t_s2_10"><label for="t_s2_10">forEach — loop through an array</label></div>
+          <div class="task"><input type="checkbox" id="t_s2_11"><label for="t_s2_11">while loop — repeat while condition is true</label></div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.3</div>
+            <div class="task"><input type="checkbox" id="hw_s2_3"><label for="hw_s2_3">Create an array of 5 appointment times. Use forEach to print each one with a message: "Appointment available at [time]" <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s2m2')">
+      <span class="month-badge" style="background:#2d1b69;color:#a78bfa">MONTH 2</span>
+      <span class="month-title">Functions, arrays, objects</span>
+      <span class="month-count" id="cnt-s2m2">0/0</span>
+      <span class="month-chev" id="chev-s2m2">▼</span>
+    </div>
+    <div class="month-body" id="body-s2m2">
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s2m2c1')">
+          <span class="ch-num">CH.4</span>
+          <span class="ch-title">Functions — reusable blocks of code</span>
+          <span class="ch-prog" id="prog-s2m2c1">0/5</span>
+          <span class="ch-chev" id="chev-s2m2c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s2m2c1">
+          <div class="task"><input type="checkbox" id="t_s2_12"><label for="t_s2_12">Create a basic function: function greet(name) { return "Hello " + name }</label></div>
+          <div class="task"><input type="checkbox" id="t_s2_13"><label for="t_s2_13">Arrow functions: const greet = (name) => "Hello " + name</label></div>
+          <div class="task"><input type="checkbox" id="t_s2_14"><label for="t_s2_14">Parameters and return values</label></div>
+          <div class="task"><input type="checkbox" id="t_s2_15"><label for="t_s2_15">Higher-order functions: map(), filter(), find()</label></div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.4</div>
+            <div class="task"><input type="checkbox" id="hw_s2_4"><label for="hw_s2_4">Write 3 functions: (1) bookAppointment(patient, time), (2) cancelAppointment(patient), (3) getAvailableSlots(day). Console.log realistic results <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s2m2c2')">
+          <span class="ch-num">CH.5</span>
+          <span class="ch-title">Objects and Arrays — storing complex data</span>
+          <span class="ch-prog" id="prog-s2m2c2">0/4</span>
+          <span class="ch-chev" id="chev-s2m2c2">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s2m2c2">
+          <div class="task"><input type="checkbox" id="t_s2_16"><label for="t_s2_16">Objects: {name: "Dr. Chen", specialty: "dentist", slots: [...]}</label></div>
+          <div class="task"><input type="checkbox" id="t_s2_17"><label for="t_s2_17">Arrays of objects: how Fugue stores multiple practitioners</label></div>
+          <div class="task"><input type="checkbox" id="t_s2_18"><label for="t_s2_18">Destructuring: const {name, slots} = practitioner</label></div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.5</div>
+            <div class="task"><input type="checkbox" id="hw_s2_5"><label for="hw_s2_5">Create a JS object for a clinic (name, address, 3 practitioners, weekly schedule). Access and print each property <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s2m2c3')">
+          <span class="ch-num">CH.6</span>
+          <span class="ch-title">Async JS — fetch data and wait for it</span>
+          <span class="ch-prog" id="prog-s2m2c3">0/4</span>
+          <span class="ch-chev" id="chev-s2m2c3">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s2m2c3">
+          <div class="task"><input type="checkbox" id="t_s2_19"><label for="t_s2_19">Understand: why does JS need to "wait" for data? (async concept)</label></div>
+          <div class="task"><input type="checkbox" id="t_s2_20"><label for="t_s2_20">Promises: .then() and .catch()</label></div>
+          <div class="task"><input type="checkbox" id="t_s2_21"><label for="t_s2_21">async/await — the modern way to handle waiting (used in Firebase)</label></div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.6</div>
+            <div class="task"><input type="checkbox" id="hw_s2_6"><label for="hw_s2_6">Use fetch() to get data from a free public API (like https://api.quotable.io/random). Display the result in the console <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s2m3')">
+      <span class="month-badge" style="background:#2d1b69;color:#a78bfa">MONTHS 3-4</span>
+      <span class="month-title">JS in the real world — DOM + Fugue's code</span>
+      <span class="month-count" id="cnt-s2m3">0/0</span>
+      <span class="month-chev" id="chev-s2m3">▼</span>
+    </div>
+    <div class="month-body" id="body-s2m3">
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s2m3c1')">
+          <span class="ch-num">CH.7</span>
+          <span class="ch-title">DOM — making webpages interactive</span>
+          <span class="ch-prog" id="prog-s2m3c1">0/5</span>
+          <span class="ch-chev" id="chev-s2m3c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s2m3c1">
+          <div class="task"><input type="checkbox" id="t_s2_22"><label for="t_s2_22">document.getElementById() — find an element on the page</label></div>
+          <div class="task"><input type="checkbox" id="t_s2_23"><label for="t_s2_23">addEventListener — react to clicks, inputs, form submissions</label></div>
+          <div class="task"><input type="checkbox" id="t_s2_24"><label for="t_s2_24">innerHTML and textContent — change what's displayed</label></div>
+          <div class="task"><input type="checkbox" id="t_s2_25"><label for="t_s2_25">Read and understand Fugue dashboard's main JS file</label></div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.7</div>
+            <div class="task"><input type="checkbox" id="hw_s2_7"><label for="hw_s2_7">Build a simple appointment booking form in HTML+JS: patient enters name + time, JS displays "Appointment booked for [name] at [time]" <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SUBJECT 3: AI + CLAUDE ==================== -->
+<div class="subject-panel" id="panel-s3">
+  <div class="subject-header">
+    <div class="sh-top"><span class="sh-icon">🟢</span><span class="sh-name">AI + Claude Academy</span></div>
+    <div class="sh-desc">Free certifications from Anthropic (the makers of Claude). 14 courses, each with a LinkedIn certificate. Directly applicable to Fugue Agency.</div>
+    <div class="sh-resources">📺 Resources: <a href="https://anthropic.skilljar.com" target="_blank">Anthropic Academy (free)</a> · anthropic.skilljar.com · All courses give official certificates</div>
+    <div class="sh-bar"><div class="sh-fill" id="fill-s3" style="width:0%;background:#059669"></div></div>
+  </div>
+
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s3m1')">
+      <span class="month-badge" style="background:#052e16;color:#4ade80">MONTH 1</span>
+      <span class="month-title">Understanding Claude + AI Fluency certificates</span>
+      <span class="month-count" id="cnt-s3m1">0/0</span>
+      <span class="month-chev" id="chev-s3m1">▼</span>
+    </div>
+    <div class="month-body" id="body-s3m1">
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s3m1c1')">
+          <span class="ch-num">CH.1</span>
+          <span class="ch-title">Claude 101 — Official Anthropic course</span>
+          <span class="ch-prog" id="prog-s3m1c1">0/4</span>
+          <span class="ch-chev" id="chev-s3m1c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s3m1c1">
+          <div class="task"><input type="checkbox" id="t_s3_1"><label for="t_s3_1">Enroll at anthropic.skilljar.com/claude-101 (free, 1-2h) <span class="tag tag-resource">enroll</span></label></div>
+          <div class="task"><input type="checkbox" id="t_s3_2"><label for="t_s3_2">Complete all lessons: prompting, workflows, real use cases</label></div>
+          <div class="task"><input type="checkbox" id="t_s3_3"><label for="t_s3_3">Pass the final quiz and get your certificate</label></div>
+          <div class="task"><input type="checkbox" id="t_s3_4"><label for="t_s3_4">Add certificate to LinkedIn</label></div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s3m1c2')">
+          <span class="ch-num">CH.2</span>
+          <span class="ch-title">AI Fluency: Framework & Foundations</span>
+          <span class="ch-prog" id="prog-s3m1c2">0/4</span>
+          <span class="ch-chev" id="chev-s3m1c2">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s3m1c2">
+          <div class="task"><input type="checkbox" id="t_s3_5"><label for="t_s3_5">Enroll at anthropic.skilljar.com/ai-fluency-framework-foundations <span class="tag tag-resource">enroll</span></label></div>
+          <div class="task"><input type="checkbox" id="t_s3_6"><label for="t_s3_6">Learn: how AI models think, where they fail, how to use them well</label></div>
+          <div class="task"><input type="checkbox" id="t_s3_7"><label for="t_s3_7">Complete and get certificate</label></div>
+          <div class="task"><input type="checkbox" id="t_s3_8"><label for="t_s3_8">Apply what you learned to improve your prompts for Fugue</label></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s3m2')">
+      <span class="month-badge" style="background:#052e16;color:#4ade80">MONTH 2</span>
+      <span class="month-title">Building with Claude API</span>
+      <span class="month-count" id="cnt-s3m2">0/0</span>
+      <span class="month-chev" id="chev-s3m2">▼</span>
+    </div>
+    <div class="month-body" id="body-s3m2">
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s3m2c1')">
+          <span class="ch-num">CH.3</span>
+          <span class="ch-title">Building with the Claude API</span>
+          <span class="ch-prog" id="prog-s3m2c1">0/5</span>
+          <span class="ch-chev" id="chev-s3m2c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s3m2c1">
+          <div class="task"><input type="checkbox" id="t_s3_9"><label for="t_s3_9">Enroll in "Building with the Claude API" on Anthropic Academy <span class="tag tag-resource">enroll</span></label></div>
+          <div class="task"><input type="checkbox" id="t_s3_10"><label for="t_s3_10">Authentication: how to connect your app to Claude</label></div>
+          <div class="task"><input type="checkbox" id="t_s3_11"><label for="t_s3_11">Making API requests and reading responses</label></div>
+          <div class="task"><input type="checkbox" id="t_s3_12"><label for="t_s3_12">Streaming responses and tool use</label></div>
+          <div class="task"><input type="checkbox" id="t_s3_13"><label for="t_s3_13">Get certificate + apply to Fugue's Claude integration</label></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s3m3')">
+      <span class="month-badge" style="background:#052e16;color:#4ade80">MONTHS 3-4</span>
+      <span class="month-title">Claude Code + Agentic AI</span>
+      <span class="month-count" id="cnt-s3m3">0/0</span>
+      <span class="month-chev" id="chev-s3m3">▼</span>
+    </div>
+    <div class="month-body" id="body-s3m3">
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s3m3c1')">
+          <span class="ch-num">CH.4</span>
+          <span class="ch-title">Claude Code 101 + Claude Code in Action</span>
+          <span class="ch-prog" id="prog-s3m3c1">0/5</span>
+          <span class="ch-chev" id="chev-s3m3c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s3m3c1">
+          <div class="task"><input type="checkbox" id="t_s3_14"><label for="t_s3_14">Claude Code 101: installation, workflows, CLAUDE.md project memory <span class="tag tag-resource">enroll</span></label></div>
+          <div class="task"><input type="checkbox" id="t_s3_15"><label for="t_s3_15">Claude Code in Action: file ops, GitHub workflows, hooks, SDK</label></div>
+          <div class="task"><input type="checkbox" id="t_s3_16"><label for="t_s3_16">MCP (Model Context Protocol): connect Claude to external services</label></div>
+          <div class="task"><input type="checkbox" id="t_s3_17"><label for="t_s3_17">Agentic AI: build agents that act on your behalf</label></div>
+          <div class="task"><input type="checkbox" id="t_s3_18"><label for="t_s3_18">Get all certificates — add to LinkedIn profile</label></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SUBJECT 4: WEB DESIGN ==================== -->
+<div class="subject-panel" id="panel-s4">
+  <div class="subject-header">
+    <div class="sh-top"><span class="sh-icon">🟠</span><span class="sh-name">Web Design — Framer + Client Websites</span></div>
+    <div class="sh-desc">Create professional websites for clinics and businesses (Canada + Guinea). Framer = low-code, fast, beautiful results. Goal: first client contract by July 30.</div>
+    <div class="sh-resources">📺 Resources: <a href="https://www.framer.com/learn" target="_blank">Framer Academy (free)</a> · <a href="https://www.youtube.com/@framer" target="_blank">Framer YouTube</a> · <a href="https://www.youtube.com/results?search_query=framer+tutorial+beginner+2026" target="_blank">Framer beginner tutorials</a></div>
+    <div class="sh-bar"><div class="sh-fill" id="fill-s4" style="width:0%;background:#d97706"></div></div>
+  </div>
+
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s4m1')">
+      <span class="month-badge" style="background:#3b1f0a;color:#fbbf24">WEEK 1-2 (URGENT)</span>
+      <span class="month-title">Learn Framer fast + build first demo site</span>
+      <span class="month-count" id="cnt-s4m1">0/0</span>
+      <span class="month-chev" id="chev-s4m1">▼</span>
+    </div>
+    <div class="month-body" id="body-s4m1">
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s4m1c1')">
+          <span class="ch-num">CH.1</span>
+          <span class="ch-title">Framer basics — build a site in 2 hours</span>
+          <span class="ch-prog" id="prog-s4m1c1">0/6</span>
+          <span class="ch-chev" id="chev-s4m1c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s4m1c1">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — Setup</div>
+            <div class="task"><input type="checkbox" id="t_s4_1"><label for="t_s4_1">Create a free Framer account at framer.com</label></div>
+            <div class="task"><input type="checkbox" id="t_s4_2"><label for="t_s4_2">Watch: "Framer for Beginners 2026" (30-45 min YouTube tutorial)</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Your first page</div>
+            <div class="task"><input type="checkbox" id="t_s4_3"><label for="t_s4_3">Start from a template (choose a medical/clinic template)</label></div>
+            <div class="task"><input type="checkbox" id="t_s4_4"><label for="t_s4_4">Change: clinic name, logo, colors, services list</label></div>
+            <div class="task"><input type="checkbox" id="t_s4_5"><label for="t_s4_5">Add a contact form (built-in Framer feature)</label></div>
+            <div class="task"><input type="checkbox" id="t_s4_6"><label for="t_s4_6">Publish the site and get a free framer.app URL</label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.1 — URGENT (before July 30)</div>
+            <div class="task"><input type="checkbox" id="hw_s4_1"><label for="hw_s4_1">Build a complete demo site for "Clinique Barry" (fake clinic). Include: homepage, services, about, contact form. Share the live URL <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s4m1c2')">
+          <span class="ch-num">CH.2</span>
+          <span class="ch-title">Getting your first real client — July 30 target</span>
+          <span class="ch-prog" id="prog-s4m1c2">0/6</span>
+          <span class="ch-chev" id="chev-s4m1c2">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s4m1c2">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — Prospecting strategy</div>
+            <div class="task"><input type="checkbox" id="t_s4_7"><label for="t_s4_7">Search Google Maps for clinics/businesses in Toronto with no website or bad website</label></div>
+            <div class="task"><input type="checkbox" id="t_s4_8"><label for="t_s4_8">Make a list of 20 prospects (business name, phone, email if available)</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Your pitch</div>
+            <div class="task"><input type="checkbox" id="t_s4_9"><label for="t_s4_9">Prepare a 30-second pitch: "I build professional websites for clinics in 3-5 days for $300-800"</label></div>
+            <div class="task"><input type="checkbox" id="t_s4_10"><label for="t_s4_10">Send emails or call 10 businesses this week</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 3 — Pricing</div>
+            <div class="task"><input type="checkbox" id="t_s4_11"><label for="t_s4_11">Starter package: $300-500 (5-page site, Framer, delivered in 5 days)</label></div>
+            <div class="task"><input type="checkbox" id="t_s4_12"><label for="t_s4_12">Standard package: $600-800 (+ contact form, Google Maps, SEO basics)</label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.2</div>
+            <div class="task"><input type="checkbox" id="hw_s4_2"><label for="hw_s4_2">Contact 10 real businesses. Track responses in a spreadsheet (business name, contacted, response, follow-up date) <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s4m2')">
+      <span class="month-badge" style="background:#3b1f0a;color:#fbbf24">MONTHS 2-4</span>
+      <span class="month-title">Advanced Framer + Guinea market</span>
+      <span class="month-count" id="cnt-s4m2">0/0</span>
+      <span class="month-chev" id="chev-s4m2">▼</span>
+    </div>
+    <div class="month-body" id="body-s4m2">
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s4m2c1')">
+          <span class="ch-num">CH.3</span>
+          <span class="ch-title">Advanced Framer features</span>
+          <span class="ch-prog" id="prog-s4m2c1">0/5</span>
+          <span class="ch-chev" id="chev-s4m2c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s4m2c1">
+          <div class="task"><input type="checkbox" id="t_s4_13"><label for="t_s4_13">Animations and hover effects</label></div>
+          <div class="task"><input type="checkbox" id="t_s4_14"><label for="t_s4_14">Custom domain setup (connect client's domain to Framer)</label></div>
+          <div class="task"><input type="checkbox" id="t_s4_15"><label for="t_s4_15">SEO settings: page title, description, Google indexing</label></div>
+          <div class="task"><input type="checkbox" id="t_s4_16"><label for="t_s4_16">Multi-language sites (FR + EN for Guinea clients)</label></div>
+          <div class="task"><input type="checkbox" id="t_s4_17"><label for="t_s4_17">Integrate a booking system (link to Fugue or Calendly)</label></div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s4m2c2')">
+          <span class="ch-num">CH.4</span>
+          <span class="ch-title">Guinea + Africa market strategy</span>
+          <span class="ch-prog" id="prog-s4m2c2">0/4</span>
+          <span class="ch-chev" id="chev-s4m2c2">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s4m2c2">
+          <div class="task"><input type="checkbox" id="t_s4_18"><label for="t_s4_18">Research: which businesses in Guinea have no website (clinics, hotels, restaurants)</label></div>
+          <div class="task"><input type="checkbox" id="t_s4_19"><label for="t_s4_19">Price in local context: $150-300 per site (still good income for you)</label></div>
+          <div class="task"><input type="checkbox" id="t_s4_20"><label for="t_s4_20">Build one demo site in French for a Guinean clinic</label></div>
+          <div class="task"><input type="checkbox" id="t_s4_21"><label for="t_s4_21">Contact 5 businesses in Guinea through WhatsApp or email</label></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SUBJECT 5: CS FUNDAMENTALS ==================== -->
+<div class="subject-panel" id="panel-s5">
+  <div class="subject-header">
+    <div class="sh-top"><span class="sh-icon">🩷</span><span class="sh-name">CS Fundamentals — Harvard CS50</span></div>
+    <div class="sh-desc">Understand how computers really work. This is your theory foundation. CS50 is the world's most popular CS course — free on edX, audit mode.</div>
+    <div class="sh-resources">📺 Resources: <a href="https://cs50.harvard.edu/x/" target="_blank">CS50x (Harvard, free audit)</a> · <a href="https://www.youtube.com/cs50" target="_blank">CS50 YouTube</a> · <a href="https://www.youtube.com/playlist?list=PL8dPuuaLjXtNlUrzyH5r6jN9ulIgZBpdo" target="_blank">Crash Course Computer Science</a></div>
+    <div class="sh-bar"><div class="sh-fill" id="fill-s5" style="width:0%;background:#db2777"></div></div>
+  </div>
+
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s5m1')">
+      <span class="month-badge" style="background:#4a0020;color:#f9a8d4">MONTH 1</span>
+      <span class="month-title">How computers think — Crash Course + CS50 Weeks 0-1</span>
+      <span class="month-count" id="cnt-s5m1">0/0</span>
+      <span class="month-chev" id="chev-s5m1">▼</span>
+    </div>
+    <div class="month-body" id="body-s5m1">
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s5m1c1')">
+          <span class="ch-num">CH.1</span>
+          <span class="ch-title">Crash Course Computer Science — Episodes 1-10</span>
+          <span class="ch-prog" id="prog-s5m1c1">0/5</span>
+          <span class="ch-chev" id="chev-s5m1c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s5m1c1">
+          <div class="task"><input type="checkbox" id="t_s5_1"><label for="t_s5_1">Ep 1-2: How computers use binary (0s and 1s) to store everything</label></div>
+          <div class="task"><input type="checkbox" id="t_s5_2"><label for="t_s5_2">Ep 3-5: CPU, RAM, memory — what happens when you run a program</label></div>
+          <div class="task"><input type="checkbox" id="t_s5_3"><label for="t_s5_3">Ep 6-8: Algorithms — what they are and why they matter</label></div>
+          <div class="task"><input type="checkbox" id="t_s5_4"><label for="t_s5_4">Ep 9-10: Programming languages — why there are so many, which to use when</label></div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.1</div>
+            <div class="task"><input type="checkbox" id="hw_s5_1"><label for="hw_s5_1">Write a 1-page summary: explain to a 12-year-old what an algorithm is, using a real-life example from Fugue Agency <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s5m1c2')">
+          <span class="ch-num">CH.2</span>
+          <span class="ch-title">CS50 Week 0 — Scratch (visual programming)</span>
+          <span class="ch-prog" id="prog-s5m1c2">0/4</span>
+          <span class="ch-chev" id="chev-s5m1c2">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s5m1c2">
+          <div class="task"><input type="checkbox" id="t_s5_5"><label for="t_s5_5">Watch CS50 Week 0 lecture (YouTube: "CS50 2024 Week 0")</label></div>
+          <div class="task"><input type="checkbox" id="t_s5_6"><label for="t_s5_6">Understand: variables, loops, conditions — but with blocks not code</label></div>
+          <div class="task"><input type="checkbox" id="t_s5_7"><label for="t_s5_7">Build a simple Scratch project (any idea — a quiz, a game, a story)</label></div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.2</div>
+            <div class="task"><input type="checkbox" id="hw_s5_2"><label for="hw_s5_2">Build a Scratch quiz about Black Legends (5 questions about figures from your YouTube channel). Share the link <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s5m2')">
+      <span class="month-badge" style="background:#4a0020;color:#f9a8d4">MONTHS 2-4</span>
+      <span class="month-title">CS50 Weeks 1-6 — C, Python, SQL, Web basics</span>
+      <span class="month-count" id="cnt-s5m2">0/0</span>
+      <span class="month-chev" id="chev-s5m2">▼</span>
+    </div>
+    <div class="month-body" id="body-s5m2">
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s5m2c1')">
+          <span class="ch-num">CH.3</span>
+          <span class="ch-title">CS50 Weeks 1-6 (audit mode, no assignments required)</span>
+          <span class="ch-prog" id="prog-s5m2c1">0/6</span>
+          <span class="ch-chev" id="chev-s5m2c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s5m2c1">
+          <div class="task"><input type="checkbox" id="t_s5_8"><label for="t_s5_8">Week 1: C — understand compiled languages (even if you won't use C, it teaches how computers execute code)</label></div>
+          <div class="task"><input type="checkbox" id="t_s5_9"><label for="t_s5_9">Week 2: Arrays — how data is stored in memory</label></div>
+          <div class="task"><input type="checkbox" id="t_s5_10"><label for="t_s5_10">Week 3: Algorithms — searching, sorting (binary search explained)</label></div>
+          <div class="task"><input type="checkbox" id="t_s5_11"><label for="t_s5_11">Week 4: Memory — pointers, heap (why apps crash)</label></div>
+          <div class="task"><input type="checkbox" id="t_s5_12"><label for="t_s5_12">Week 5: Data structures — linked lists, trees, hash tables</label></div>
+          <div class="task"><input type="checkbox" id="t_s5_13"><label for="t_s5_13">Week 6: Python — same concepts, much cleaner syntax (directly useful!)</label></div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK (months 2-4)</div>
+            <div class="task"><input type="checkbox" id="hw_s5_3"><label for="hw_s5_3">After each CS50 week: write 3 things you learned + 1 way it connects to Fugue Agency or your app idea <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+// ---- Data structure ----
+const subjects = ['s1','s2','s3','s4','s5'];
+const months = {
+  s1:['s1m1','s1m2','s1m3','s1m4'],
+  s2:['s2m1','s2m2','s2m3'],
+  s3:['s3m1','s3m2','s3m3'],
+  s4:['s4m1','s4m2'],
+  s5:['s5m1','s5m2']
+};
+const chapters = {
+  s1m1:['s1m1c1','s1m1c2','s1m1c3'],
+  s1m2:['s1m2c1','s1m2c2'],
+  s1m3:['s1m3c1','s1m3c2'],
+  s1m4:['s1m4c1','s1m4c2'],
+  s2m1:['s2m1c1','s2m1c2','s2m1c3'],
+  s2m2:['s2m2c1','s2m2c2','s2m2c3'],
+  s2m3:['s2m3c1'],
+  s3m1:['s3m1c1','s3m1c2'],
+  s3m2:['s3m2c1'],
+  s3m3:['s3m3c1'],
+  s4m1:['s4m1c1','s4m1c2'],
+  s4m2:['s4m2c1','s4m2c2'],
+  s5m1:['s5m1c1','s5m1c2'],
+  s5m2:['s5m2c1']
+};
+
+// Save/load
+function save() {
+  const state = {};
+  document.querySelectorAll('input[type=checkbox]').forEach(cb => { state[cb.id] = cb.checked; });
+  localStorage.setItem('khadija_study', JSON.stringify(state));
+}
+function load() {
+  const state = JSON.parse(localStorage.getItem('khadija_study') || '{}');
+  document.querySelectorAll('input[type=checkbox]').forEach(cb => {
+    if (state[cb.id]) { cb.checked = true; cb.closest('.task')?.classList.add('done'); }
+  });
+}
+
+// Update all progress
+function updateAll() {
+  let totalDone = 0, totalAll = 0;
+
+  subjects.forEach(s => {
+    let sDone = 0, sAll = 0;
+    (months[s] || []).forEach(m => {
+      let mDone = 0, mAll = 0;
+      (chapters[m] || []).forEach(c => {
+        const tasks = document.querySelectorAll(`#lessons-${c} input[type=checkbox]`);
+        const done = [...tasks].filter(t => t.checked).length;
+        if (document.getElementById('prog-'+c)) document.getElementById('prog-'+c).textContent = done+'/'+tasks.length;
+        mDone += done; mAll += tasks.length;
+      });
+      if (document.getElementById('cnt-'+m)) document.getElementById('cnt-'+m).textContent = mDone+'/'+mAll;
+      sDone += mDone; sAll += mAll;
+    });
+    const pct = sAll ? Math.round(sDone/sAll*100) : 0;
+    if (document.getElementById('fill-'+s)) document.getElementById('fill-'+s).style.width = pct+'%';
+    totalDone += sDone; totalAll += sAll;
+  });
+
+  const gPct = totalAll ? Math.round(totalDone/totalAll*100) : 0;
+  document.getElementById('globalFill').style.width = gPct+'%';
+  document.getElementById('globalLabel').textContent = totalDone+' / '+totalAll+' tasks completed ('+gPct+'%)';
+
+  // Update done class
+  document.querySelectorAll('input[type=checkbox]').forEach(cb => {
+    cb.closest('.task')?.classList.toggle('done', cb.checked);
+  });
+
+  save();
+}
+
+function showSubject(id) {
+  document.querySelectorAll('.subject-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-'+id)?.classList.add('active');
+  document.querySelector(`.subject-btn.${id}`)?.classList.add('active');
+}
+
+function toggleMonth(id) {
+  const body = document.getElementById('body-'+id);
+  const chev = document.getElementById('chev-'+id);
+  if (!body) return;
+  const open = body.classList.toggle('open');
+  chev?.classList.toggle('open', open);
+}
+
+function toggleChapter(id) {
+  const lessons = document.getElementById('lessons-'+id);
+  const chev = document.getElementById('chev-'+id);
+  if (!lessons) return;
+  const open = lessons.classList.toggle('open');
+  chev?.classList.toggle('open', open);
+}
+
+document.querySelectorAll('input[type=checkbox]').forEach(cb => cb.addEventListener('change', updateAll));
+load();
+updateAll();
+</script>
+</body>
+</html>
