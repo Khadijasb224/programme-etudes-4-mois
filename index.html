@@ -28,6 +28,7 @@ h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; color: #fff; }
 .subject-btn.s3.active { background: #059669; }
 .subject-btn.s4.active { background: #d97706; }
 .subject-btn.s5.active { background: #db2777; }
+.subject-btn.s6.active { background: #0891b2; }
 
 /* Subject panels */
 .subject-panel { display: none; }
@@ -104,13 +105,14 @@ h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; color: #fff; }
 .slot-s3 { background: #059669; }
 .slot-s4 { background: #d97706; }
 .slot-s5 { background: #db2777; }
+.slot-s6 { background: #0891b2; }
 .slot-rest { background: #2a2a2a; color: #666; }
 </style>
 </head>
 <body>
 <div class="container">
 <h1>📚 Khadija's Study Program</h1>
-<p class="subtitle">4 months · 5 subjects in parallel · School-style curriculum · Target: first client by Sept 6, 2026</p>
+<p class="subtitle">4 months · 6 subjects in parallel · School-style curriculum · Target: first client by Sept 6, 2026</p>
 
 <!-- Global Progress -->
 <div class="global-progress">
@@ -121,13 +123,13 @@ h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; color: #fff; }
 
 <!-- Weekly Schedule -->
 <div class="schedule">
-  <h3>📅 Weekly Schedule (4h/day)</h3>
-  <div class="day-row"><span class="day-name">Monday</span><div class="day-slots"><span class="slot slot-s1">Fugue Tech (2h)</span><span class="slot slot-s2">JavaScript (2h)</span></div></div>
-  <div class="day-row"><span class="day-name">Tuesday</span><div class="day-slots"><span class="slot slot-s4">Web Design (2h)</span><span class="slot slot-s2">JavaScript (2h)</span></div></div>
-  <div class="day-row"><span class="day-name">Wednesday</span><div class="day-slots"><span class="slot slot-s1">Fugue Tech (2h)</span><span class="slot slot-s3">AI + Claude (2h)</span></div></div>
-  <div class="day-row"><span class="day-name">Thursday</span><div class="day-slots"><span class="slot slot-s4">Web Design (2h)</span><span class="slot slot-s5">CS Fundamentals (2h)</span></div></div>
-  <div class="day-row"><span class="day-name">Friday</span><div class="day-slots"><span class="slot slot-s1">Anslem Session (1-2h)</span><span class="slot slot-s4">Client Prospecting (2h)</span></div></div>
-  <div class="day-row"><span class="day-name">Saturday</span><div class="day-slots"><span class="slot slot-rest">YouTube (max 3h)</span><span class="slot slot-rest">Review + Homework</span></div></div>
+  <h3>📅 Weekly Schedule (6h/day · 2 subjects/day)</h3>
+  <div class="day-row"><span class="day-name">Monday</span><div class="day-slots"><span class="slot slot-s1">Fugue Tech (3h)</span><span class="slot slot-s2">JavaScript (3h)</span></div></div>
+  <div class="day-row"><span class="day-name">Tuesday</span><div class="day-slots"><span class="slot slot-s4">Web Design (3h)</span><span class="slot slot-s6">Animation & Malal (3h)</span></div></div>
+  <div class="day-row"><span class="day-name">Wednesday</span><div class="day-slots"><span class="slot slot-s1">Fugue Tech (3h)</span><span class="slot slot-s3">AI + Claude (3h)</span></div></div>
+  <div class="day-row"><span class="day-name">Thursday</span><div class="day-slots"><span class="slot slot-s2">JavaScript (3h)</span><span class="slot slot-s5">CS Fundamentals (3h)</span></div></div>
+  <div class="day-row"><span class="day-name">Friday</span><div class="day-slots"><span class="slot slot-s1">Anslem Session (3h)</span><span class="slot slot-s4">Client Prospecting (3h)</span></div></div>
+  <div class="day-row"><span class="day-name">Saturday</span><div class="day-slots"><span class="slot slot-s6">Animation & Malal (3h)</span><span class="slot slot-rest">Review + Homework (3h)</span></div></div>
   <div class="day-row"><span class="day-name">Sunday</span><div class="day-slots"><span class="slot slot-rest">Rest + Weekly review</span></div></div>
 </div>
 
@@ -138,6 +140,7 @@ h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; color: #fff; }
   <button class="subject-btn s3" onclick="showSubject('s3')">🟢 AI + Claude Academy</button>
   <button class="subject-btn s4" onclick="showSubject('s4')">🟠 Web Design (Framer)</button>
   <button class="subject-btn s5" onclick="showSubject('s5')">🩷 CS Fundamentals</button>
+  <button class="subject-btn s6" onclick="showSubject('s6')">🎬 Animation & Malal</button>
 </div>
 
 <!-- ==================== SUBJECT 1: FUGUE TECH ==================== -->
@@ -925,17 +928,288 @@ h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; color: #fff; }
   </div>
 </div>
 
+<!-- ==================== SUBJECT 6: ANIMATION & MALAL ==================== -->
+<div class="subject-panel" id="panel-s6">
+  <div class="subject-header">
+    <div class="sh-top"><span class="sh-icon">🎬</span><span class="sh-name">Animation & Malal</span></div>
+    <div class="sh-desc">Learn 2D animation from scratch to produce a pilot episode of Malal, your children's animated series — from the 12 principles of animation to a published YouTube episode.</div>
+    <div class="sh-resources">📺 Resources: <a href="https://www.krita.org" target="_blank">Krita (free drawing)</a> · <a href="https://www.synfig.org" target="_blank">Synfig Studio (free rigging/animation)</a> · <a href="https://opentoonz.github.io" target="_blank">OpenToonz (free, used by Studio Ghibli)</a> · <a href="https://www.blender.org" target="_blank">Blender Grease Pencil</a> · <a href="https://www.youtube.com/results?search_query=12+principles+of+animation" target="_blank">12 Principles of Animation (YouTube)</a></div>
+    <div class="sh-bar"><div class="sh-fill" id="fill-s6" style="width:0%;background:#0891b2"></div></div>
+  </div>
+
+  <!-- MONTH 1 -->
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s6m1')">
+      <span class="month-badge" style="background:#083344;color:#22d3ee">MONTH 1</span>
+      <span class="month-title">Animation foundations — principles + tools</span>
+      <span class="month-count" id="cnt-s6m1">0/0</span>
+      <span class="month-chev" id="chev-s6m1">▼</span>
+    </div>
+    <div class="month-body" id="body-s6m1">
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s6m1c1')">
+          <span class="ch-num">CH.1</span>
+          <span class="ch-title">The 12 Principles of Animation</span>
+          <span class="ch-prog" id="prog-s6m1c1">0/6</span>
+          <span class="ch-chev" id="chev-s6m1c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s6m1c1">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — What is 2D animation and why it matters for Malal</div>
+            <div class="task"><input type="checkbox" id="t_s6_1"><label for="t_s6_1">Understand frame rate (12/24fps) and how animation creates the illusion of motion <span class="tag tag-lesson">concept</span></label></div>
+            <div class="task"><input type="checkbox" id="t_s6_2"><label for="t_s6_2">Watch an overview of Disney's 12 classic principles of animation</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Squash & stretch, timing & spacing</div>
+            <div class="task"><input type="checkbox" id="t_s6_3"><label for="t_s6_3">Practice squash and stretch with a bouncing ball</label></div>
+            <div class="task"><input type="checkbox" id="t_s6_4"><label for="t_s6_4">Understand timing (how many frames) vs spacing (distance between frames)</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 3 — Anticipation, follow-through, secondary action</div>
+            <div class="task"><input type="checkbox" id="t_s6_5"><label for="t_s6_5">Draw a simple anticipation exercise (a character about to jump)</label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.1</div>
+            <div class="task"><input type="checkbox" id="hw_s6_1"><label for="hw_s6_1">Animate a bouncing ball loop (8-12 frames) applying squash/stretch and timing. Export it as a GIF <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s6m1c2')">
+          <span class="ch-num">CH.2</span>
+          <span class="ch-title">Setting up your animation toolkit</span>
+          <span class="ch-prog" id="prog-s6m1c2">0/5</span>
+          <span class="ch-chev" id="chev-s6m1c2">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s6m1c2">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — Choosing free software</div>
+            <div class="task"><input type="checkbox" id="t_s6_6"><label for="t_s6_6">Install Krita (drawing) and Synfig Studio or Blender Grease Pencil (rigging/animation)</label></div>
+            <div class="task"><input type="checkbox" id="t_s6_7"><label for="t_s6_7">Explore OpenToonz as an alternative (free, used by Studio Ghibli)</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Workspace basics</div>
+            <div class="task"><input type="checkbox" id="t_s6_8"><label for="t_s6_8">Learn the timeline, onion skinning, and frame-by-frame tools</label></div>
+            <div class="task"><input type="checkbox" id="t_s6_9"><label for="t_s6_9">Set up a canvas at the right resolution/fps for YouTube (1920x1080, 24fps)</label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.2</div>
+            <div class="task"><input type="checkbox" id="hw_s6_2"><label for="hw_s6_2">Create a 5-frame flipbook test animation (a simple wave or blink) in your chosen software <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MONTH 2 -->
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s6m2')">
+      <span class="month-badge" style="background:#083344;color:#22d3ee">MONTH 2</span>
+      <span class="month-title">Character design & rigging — bringing Malal to life</span>
+      <span class="month-count" id="cnt-s6m2">0/0</span>
+      <span class="month-chev" id="chev-s6m2">▼</span>
+    </div>
+    <div class="month-body" id="body-s6m2">
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s6m2c1')">
+          <span class="ch-num">CH.3</span>
+          <span class="ch-title">Designing the Malal characters</span>
+          <span class="ch-prog" id="prog-s6m2c1">0/4</span>
+          <span class="ch-chev" id="chev-s6m2c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s6m2c1">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — Character design basics</div>
+            <div class="task"><input type="checkbox" id="t_s6_10"><label for="t_s6_10">Sketch 3 model sheets for Malal (front, side, 3/4 view)</label></div>
+            <div class="task"><input type="checkbox" id="t_s6_11"><label for="t_s6_11">Define a simple, appealing color palette for each main character</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Expressions & poses</div>
+            <div class="task"><input type="checkbox" id="t_s6_12"><label for="t_s6_12">Draw 6 basic expressions (happy, sad, angry, surprised, scared, neutral) for Malal</label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.3</div>
+            <div class="task"><input type="checkbox" id="hw_s6_3"><label for="hw_s6_3">Finalize a full character turnaround sheet for Malal plus 1 secondary character <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s6m2c2')">
+          <span class="ch-num">CH.4</span>
+          <span class="ch-title">Rigging for cutout animation</span>
+          <span class="ch-prog" id="prog-s6m2c2">0/5</span>
+          <span class="ch-chev" id="chev-s6m2c2">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s6m2c2">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — What is rigging?</div>
+            <div class="task"><input type="checkbox" id="t_s6_13"><label for="t_s6_13">Understand cutout/puppet animation vs frame-by-frame</label></div>
+            <div class="task"><input type="checkbox" id="t_s6_14"><label for="t_s6_14">Break a character into parts (head, arms, legs, mouth shapes)</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Building a rig</div>
+            <div class="task"><input type="checkbox" id="t_s6_15"><label for="t_s6_15">Rig Malal's body parts with bones or layer parenting in Synfig/Blender</label></div>
+            <div class="task"><input type="checkbox" id="t_s6_16"><label for="t_s6_16">Create 3 mouth shapes for basic lip sync (closed, open, wide)</label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.4</div>
+            <div class="task"><input type="checkbox" id="hw_s6_4"><label for="hw_s6_4">Build a working rig for Malal that can wave, walk, and talk <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MONTH 3 -->
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s6m3')">
+      <span class="month-badge" style="background:#083344;color:#22d3ee">MONTH 3</span>
+      <span class="month-title">Animating scenes — movement, timing, voice</span>
+      <span class="month-count" id="cnt-s6m3">0/0</span>
+      <span class="month-chev" id="chev-s6m3">▼</span>
+    </div>
+    <div class="month-body" id="body-s6m3">
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s6m3c1')">
+          <span class="ch-num">CH.5</span>
+          <span class="ch-title">Walk cycles & movement</span>
+          <span class="ch-prog" id="prog-s6m3c1">0/5</span>
+          <span class="ch-chev" id="chev-s6m3c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s6m3c1">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — The walk cycle</div>
+            <div class="task"><input type="checkbox" id="t_s6_17"><label for="t_s6_17">Study the 8 key poses of a walk cycle</label></div>
+            <div class="task"><input type="checkbox" id="t_s6_18"><label for="t_s6_18">Animate a basic, loopable walk cycle for Malal</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Run & idle cycles</div>
+            <div class="task"><input type="checkbox" id="t_s6_19"><label for="t_s6_19">Animate an idle/breathing loop</label></div>
+            <div class="task"><input type="checkbox" id="t_s6_20"><label for="t_s6_20">Animate a simple run cycle</label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.5</div>
+            <div class="task"><input type="checkbox" id="hw_s6_5"><label for="hw_s6_5">Animate Malal walking across the screen and stopping to wave <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s6m3c2')">
+          <span class="ch-num">CH.6</span>
+          <span class="ch-title">Lip sync & voice acting basics</span>
+          <span class="ch-prog" id="prog-s6m3c2">0/5</span>
+          <span class="ch-chev" id="chev-s6m3c2">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s6m3c2">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — Matching mouth shapes to sound</div>
+            <div class="task"><input type="checkbox" id="t_s6_21"><label for="t_s6_21">Record a short line of dialogue (yourself or a friend) for Malal</label></div>
+            <div class="task"><input type="checkbox" id="t_s6_22"><label for="t_s6_22">Import the audio into your animation software and mark the beats</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Syncing animation to audio</div>
+            <div class="task"><input type="checkbox" id="t_s6_23"><label for="t_s6_23">Animate mouth shapes matching the recorded line</label></div>
+            <div class="task"><input type="checkbox" id="t_s6_24"><label for="t_s6_24">Add simple body acting (head tilts, blinks) to support the line</label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.6</div>
+            <div class="task"><input type="checkbox" id="hw_s6_6"><label for="hw_s6_6">Deliver one fully lip-synced 10-15 second clip of Malal speaking <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MONTH 4 -->
+  <div class="month">
+    <div class="month-toggle" onclick="toggleMonth('s6m4')">
+      <span class="month-badge" style="background:#083344;color:#22d3ee">MONTH 4</span>
+      <span class="month-title">Producing the pilot episode</span>
+      <span class="month-count" id="cnt-s6m4">0/0</span>
+      <span class="month-chev" id="chev-s6m4">▼</span>
+    </div>
+    <div class="month-body" id="body-s6m4">
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s6m4c1')">
+          <span class="ch-num">CH.7</span>
+          <span class="ch-title">From script to storyboard to animatic</span>
+          <span class="ch-prog" id="prog-s6m4c1">0/5</span>
+          <span class="ch-chev" id="chev-s6m4c1">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s6m4c1">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — Writing a mini script</div>
+            <div class="task"><input type="checkbox" id="t_s6_25"><label for="t_s6_25">Write a simple 1-2 minute script/scene for a Malal pilot episode</label></div>
+            <div class="task"><input type="checkbox" id="t_s6_26"><label for="t_s6_26">Break the script into a shot list</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Storyboarding & animatic</div>
+            <div class="task"><input type="checkbox" id="t_s6_27"><label for="t_s6_27">Draw a storyboard for every shot</label></div>
+            <div class="task"><input type="checkbox" id="t_s6_28"><label for="t_s6_28">Assemble a rough animatic (storyboard + timed audio) to test pacing</label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.7</div>
+            <div class="task"><input type="checkbox" id="hw_s6_7"><label for="hw_s6_7">Get feedback on your animatic from at least 2 people before animating <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="ch-header" onclick="toggleChapter('s6m4c2')">
+          <span class="ch-num">CH.8</span>
+          <span class="ch-title">Animating, editing & publishing the episode</span>
+          <span class="ch-prog" id="prog-s6m4c2">0/7</span>
+          <span class="ch-chev" id="chev-s6m4c2">▼</span>
+        </div>
+        <div class="lessons" id="lessons-s6m4c2">
+          <div class="lesson">
+            <div class="lesson-title">Lesson 1 — Full animation pass</div>
+            <div class="task"><input type="checkbox" id="t_s6_29"><label for="t_s6_29">Animate each shot using your rig and backgrounds</label></div>
+            <div class="task"><input type="checkbox" id="t_s6_30"><label for="t_s6_30">Add backgrounds and simple parallax/camera moves</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 2 — Sound design & editing</div>
+            <div class="task"><input type="checkbox" id="t_s6_31"><label for="t_s6_31">Add music, sound effects, and final voice mix</label></div>
+            <div class="task"><input type="checkbox" id="t_s6_32"><label for="t_s6_32">Edit all shots together in a video editor (CapCut, DaVinci Resolve — both free)</label></div>
+          </div>
+          <div class="lesson">
+            <div class="lesson-title">Lesson 3 — Publishing</div>
+            <div class="task"><input type="checkbox" id="t_s6_33"><label for="t_s6_33">Export in 1080p and upload the pilot episode to YouTube</label></div>
+            <div class="task"><input type="checkbox" id="t_s6_34"><label for="t_s6_34">Write a title, description, and thumbnail for the episode</label></div>
+          </div>
+          <div class="hw-box">
+            <div class="hw-title">📝 HOMEWORK CH.8</div>
+            <div class="task"><input type="checkbox" id="hw_s6_8"><label for="hw_s6_8">Publish the first Malal pilot episode (2-3 min) to your YouTube channel <span class="tag tag-hw">homework</span></label></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 </div>
 
 <script>
 // ---- Data structure ----
-const subjects = ['s1','s2','s3','s4','s5'];
+const subjects = ['s1','s2','s3','s4','s5','s6'];
 const months = {
   s1:['s1m1','s1m2','s1m3','s1m4'],
   s2:['s2m1','s2m2','s2m3'],
   s3:['s3m1','s3m2','s3m3'],
   s4:['s4m1','s4m2'],
-  s5:['s5m1','s5m2']
+  s5:['s5m1','s5m2'],
+  s6:['s6m1','s6m2','s6m3','s6m4']
 };
 const chapters = {
   s1m1:['s1m1c1','s1m1c2','s1m1c3'],
@@ -951,7 +1225,11 @@ const chapters = {
   s4m1:['s4m1c1','s4m1c2'],
   s4m2:['s4m2c1','s4m2c2'],
   s5m1:['s5m1c1','s5m1c2'],
-  s5m2:['s5m2c1']
+  s5m2:['s5m2c1'],
+  s6m1:['s6m1c1','s6m1c2'],
+  s6m2:['s6m2c1','s6m2c2'],
+  s6m3:['s6m3c1','s6m3c2'],
+  s6m4:['s6m4c1','s6m4c2']
 };
 
 // Save/load
